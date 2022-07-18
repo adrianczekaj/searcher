@@ -95,7 +95,7 @@ body {
     display: inline-block;
 }
 
-.person .id {
+.person .number {
     width: 3rem;
     text-align: center;
 }
