@@ -7,8 +7,13 @@ import PersonDetails from "./components/PersonDetails";
 
 function App() {
     const [persons, setPersons] = useState([]);
-
     const [showSearchPersons, setShowSearchPerson] = useState(false);
+    const [filters, setFilters] = useState({
+        "name": "",
+        "gender": "",
+        "heightDownLimit": 0,
+        "heightUpLimit": 300,
+    })
 
     useEffect(()=>{
         const getPersons = async () => {
@@ -24,6 +29,12 @@ function App() {
         return await res.json()
     }
 
+    const onFilterChange = (e) => {
+        setFilters({
+            ...filters,
+        [e.target.name]: e.target.value})
+    }
+
     return (
         <Router>
             <div className="container">
@@ -33,7 +44,7 @@ function App() {
                         <>
                             <Header title="List of persons" onSearch={() => setShowSearchPerson(!showSearchPersons)}
                                     showSearch={showSearchPersons} />
-                            {showSearchPersons ? <Search persons={persons} /> : <Persons persons={persons} />}
+                            {showSearchPersons ? <Search persons={persons} filters={filters} onChange={onFilterChange}/> : <Persons persons={persons} filters={filters} onChange={onFilterChange}/>}
                         </>
                     } />
 
