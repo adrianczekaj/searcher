@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Persons from "./Persons";
 
-const Search = ({persons, filters, onChange}) => {
+const Search = ({persons, filters, onChange, onClick}) => {
 
     const filteredPersons = useMemo(() => persons
             .filter(x => x.name.substring(0, filters.name.length).toLowerCase() === filters.name.toLowerCase())
@@ -33,6 +33,7 @@ const Search = ({persons, filters, onChange}) => {
                     <input type="text" name="heightUpLimit" value={filters.heightUpLimit === 300 ? '' : filters.heightUpLimit}
                            onChange={onChange} />
                 </div>
+                <button className="btn btn-block" onClick={onClick}>Clear filters</button>
             </div>
             <Persons persons={filteredPersons} />
         </>
