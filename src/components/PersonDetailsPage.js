@@ -7,8 +7,6 @@ const PersonDetailsPage = ({persons}) => {
     const {id} = useParams();
     const person = persons.find(x => x.id === parseInt(id));
 
-    console.log(person);
-
     return (
         <>
             <Header title={person.name} />

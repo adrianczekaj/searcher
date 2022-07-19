@@ -1,22 +1,11 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Header from "./components/Header";
-import Search from "./components/Search";
-import Persons from "./components/Persons";
 import PersonDetailsPage from "./components/PersonDetailsPage";
+import SearchPage from "./components/SearchPage";
 
 function App() {
 
-    const defaultFilters = {
-        "name": "",
-        "gender": "",
-        "heightDownLimit": 0,
-        "heightUpLimit": 300,
-    }
-
     const [persons, setPersons] = useState([]);
-    const [showSearchPersons, setShowSearchPerson] = useState(false);
-    const [filters, setFilters] = useState(defaultFilters)
 
     useEffect(() => {
         const getPersons = async () => {
@@ -31,6 +20,21 @@ function App() {
         const res = await fetch('http://localhost:5000/persons')
         return await res.json()
     }
+
+    const [showSearchPersons, setShowSearchPerson] = useState(false);
+
+    const onSearch = () => {
+        setShowSearchPerson(!showSearchPersons);
+    }
+
+    const defaultFilters = {
+        "name": "",
+        "gender": "",
+        "heightDownLimit": 0,
+        "heightUpLimit": 300,
+    }
+
+    const [filters, setFilters] = useState(defaultFilters);
 
     const onFilterChange = (e) => {
         setFilters({
@@ -49,12 +53,10 @@ function App() {
 
                 <Routes>
                     <Route path="/" element={
-                        <>
-                            <Header title="List of persons" onSearch={() => setShowSearchPerson(!showSearchPersons)}
-                                    showSearch={showSearchPersons} />
-                            {showSearchPersons ? <Search persons={persons} filters={filters} onChange={onFilterChange}
-                                                         onClick={onClearFilters} /> : <Persons persons={persons} />}
-                        </>
+                        <SearchPage persons={persons}
+                                    showSearchPersons={showSearchPersons} onSearch={onSearch}
+                                    filters={filters} onFilterChange={onFilterChange}
+                                    onClearFilters={onClearFilters} />
                     } />
 
                     <Route path="/person/:id" element={

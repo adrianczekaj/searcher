@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
 import Persons from "./Persons";
+import { useMemo } from "react";
 
-const Search = ({persons, filters, onChange, onClick}) => {
+const Search = ({persons, filters, onFilterChange, onClearFilters}) => {
 
     const filteredPersons = useMemo(() => persons
             .filter(x => x.name.substring(0, filters.name.length).toLowerCase() === filters.name.toLowerCase())
@@ -15,11 +15,11 @@ const Search = ({persons, filters, onChange, onClick}) => {
             <div className="add-form">
                 <div className="form-control">
                     <label>Name</label>
-                    <input type="text" name="name" value={filters.name} onChange={onChange} />
+                    <input type="text" name="name" value={filters.name} onChange={onFilterChange} />
                 </div>
                 <div className="form-control">
                     <label>Gender</label>
-                    <select name="gender" value={filters.gender} onChange={onChange}>
+                    <select name="gender" value={filters.gender} onChange={onFilterChange}>
                         <option></option>
                         <option>woman</option>
                         <option>man</option>
@@ -27,13 +27,15 @@ const Search = ({persons, filters, onChange, onClick}) => {
                 </div>
                 <div className="form-control">
                     <label>Height</label>
-                    <input type="text" name="heightDownLimit" value={filters.heightDownLimit === 0 ? '' : filters.heightDownLimit}
-                           onChange={onChange} />
+                    <input type="text" name="heightDownLimit"
+                           value={filters.heightDownLimit === 0 ? '' : filters.heightDownLimit}
+                           onChange={onFilterChange} />
                     <label> - </label>
-                    <input type="text" name="heightUpLimit" value={filters.heightUpLimit === 300 ? '' : filters.heightUpLimit}
-                           onChange={onChange} />
+                    <input type="text" name="heightUpLimit"
+                           value={filters.heightUpLimit === 300 ? '' : filters.heightUpLimit}
+                           onChange={onFilterChange} />
                 </div>
-                <button className="btn btn-block" onClick={onClick}>Clear filters</button>
+                <button className="btn btn-block" onClick={onClearFilters}>Clear filters</button>
             </div>
             <Persons persons={filteredPersons} />
         </>
