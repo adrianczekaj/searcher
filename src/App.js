@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from "./components/Header";
 import Search from "./components/Search";
 import Persons from "./components/Persons";
-import PersonDetails from "./components/PersonDetails";
+import PersonDetailsPage from "./components/PersonDetailsPage";
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
     const [showSearchPersons, setShowSearchPerson] = useState(false);
     const [filters, setFilters] = useState(defaultFilters)
 
-    useEffect(()=>{
+    useEffect(() => {
         const getPersons = async () => {
             const personsFromServer = await fetchPersons()
             setPersons(personsFromServer)
@@ -35,7 +35,8 @@ function App() {
     const onFilterChange = (e) => {
         setFilters({
             ...filters,
-        [e.target.name]: e.target.value})
+            [e.target.name]: e.target.value
+        })
     }
 
     const onClearFilters = () => {
@@ -51,15 +52,13 @@ function App() {
                         <>
                             <Header title="List of persons" onSearch={() => setShowSearchPerson(!showSearchPersons)}
                                     showSearch={showSearchPersons} />
-                            {showSearchPersons ? <Search persons={persons} filters={filters} onChange={onFilterChange} onClick={onClearFilters}/> : <Persons persons={persons}/>}
+                            {showSearchPersons ? <Search persons={persons} filters={filters} onChange={onFilterChange}
+                                                         onClick={onClearFilters} /> : <Persons persons={persons} />}
                         </>
                     } />
 
                     <Route path="/person/:id" element={
-                        <>
-                            <Header title="Person" showSearch={showSearchPersons} persons={persons}/>
-                            <PersonDetails persons={persons}/>
-                        </>
+                        <PersonDetailsPage persons={persons} />
                     } />
                 </Routes>
             </div>
