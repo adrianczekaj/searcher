@@ -1,18 +1,18 @@
 import React from 'react';
-import Header from "./Header";
-import PersonDetails from "./PersonDetails";
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import Header from './Header';
+import PersonDetails from './PersonDetails';
 
-const PersonDetailsPage = ({persons}) => {
-    const {id} = useParams();
-    const person = persons.find(x => x.id === parseInt(id));
+function PersonDetailsPage({ persons }) {
+  const { id } = useParams();
+  const person = persons.find((x) => x.id === parseInt(id));
 
-    return (
-        <>
-            <Header title={person.name} />
-            <PersonDetails person={person} />
-        </>
-    );
-};
+  return (
+    <>
+      <Header title={person.name} />
+      <PersonDetails person={person} />
+    </>
+  );
+}
 
 export default PersonDetailsPage;
