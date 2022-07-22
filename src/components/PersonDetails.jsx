@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function PersonDetails({ person }) {
@@ -19,9 +20,29 @@ function PersonDetails({ person }) {
         </div>
       </div>
 
-      <Link className="btn" to="/">Back</Link>
+      <Link className="btn" to="/">
+        Back
+      </Link>
     </>
   );
 }
+
+PersonDetails.defaultProps = {
+  person: {
+    id: null,
+    name: '',
+    gender: '',
+    height: null,
+  },
+};
+
+PersonDetails.propTypes = {
+  person: {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    gender: PropTypes.string,
+    height: PropTypes.number,
+  },
+};
 
 export default PersonDetails;
