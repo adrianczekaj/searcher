@@ -28,12 +28,12 @@ Person.defaultProps = {
 
 Person.propTypes = {
   number: PropTypes.number,
-  person: {
+  person: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     gender: PropTypes.string,
     height: PropTypes.number,
-  },
+  }),
 };
 
 export default Person;
