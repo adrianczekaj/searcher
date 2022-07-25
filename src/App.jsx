@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
-import SearchPage from './components/SearchPage';
+import MainPage from './components/MainPage';
 import AddPersonPage from './components/AddPersonPage';
 
 function App() {
@@ -9,10 +9,11 @@ function App() {
     name: '',
     gender: '',
     heightDownLimit: 0,
-    heightUpLimit: 300,
+    heightUpLimit: 1000000,
   };
 
   const [persons, setPersons] = useState([]);
+  const [showAddPerson, setShowAddPerson] = useState(false);
   const [showSearchPersons, setShowSearchPersons] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -33,6 +34,12 @@ function App() {
 
   const onSearch = () => {
     setShowSearchPersons(!showSearchPersons);
+    setShowAddPerson(false);
+  };
+
+  const onAddPerson = () => {
+    setShowAddPerson(!showAddPerson);
+    setShowSearchPersons(false);
   };
 
   const onFilterChange = (e) => {
@@ -49,24 +56,26 @@ function App() {
 
   return (
     <Router>
-      <div className='container'>
+      <div className="container">
         <Routes>
           <Route
-            path='/'
+            path="/"
             element={
-              <SearchPage
+              <MainPage
                 persons={persons}
-                showSearchPersons={showSearchPersons}
-                onSearch={onSearch}
                 filters={filters}
+                showSearchPersons={showSearchPersons}
+                showAddPerson={showAddPerson}
+                onSearch={onSearch}
+                onAddPerson={onAddPerson}
                 onFilterChange={onFilterChange}
                 onClearFilters={onClearFilters}
               />
             }
           />
 
-          <Route path='/person/:id' element={<PersonDetailsPage persons={persons} />} />
-          <Route path='/person/add' element={<AddPersonPage />} />
+          <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
+          <Route path="/person/add" element={<AddPersonPage />} />
         </Routes>
       </div>
     </Router>

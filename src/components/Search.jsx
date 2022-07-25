@@ -49,7 +49,7 @@ function Search({ persons, filters, onFilterChange, onClearFilters }) {
           <input
             type="text"
             name="heightUpLimit"
-            value={filters.heightUpLimit === 300 ? '' : filters.heightUpLimit}
+            value={filters.heightUpLimit === 1000000 ? '' : filters.heightUpLimit}
             onChange={onFilterChange}
           />
         </div>

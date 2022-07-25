@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
-function Header({ title, onSearch, showSearch }) {
+function Header({ title, onSearch, showSearch, onAddPerson }) {
   const location = useLocation();
 
   return (
     <header className="header">
       <h1>{title}</h1>
       {location.pathname === '/' && (
-        <button type="button" className="btn" onClick={onSearch}>
-          {showSearch ? 'Hide filters' : 'Show filters'}
-        </button>
+        <div>
+          <button type="button" className="btn" onClick={onAddPerson}>
+            Add
+          </button>
+          <button type="button" className="btn" onClick={onSearch}>
+            {showSearch ? 'Hide filters' : 'Show filters'}
+          </button>
+        </div>
       )}
     </header>
   );

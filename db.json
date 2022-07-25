@@ -365,6 +365,12 @@
       "name": "Wertyk",
       "gender": "man",
       "height": 198
+    },
+    {
+      "id": 77,
+      "name": "Miłosz",
+      "gender": "man",
+      "height": 152
     }
   ]
 }

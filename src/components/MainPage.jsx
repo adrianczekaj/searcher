@@ -2,34 +2,53 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Search from './Search';
+import AddPerson from './AddPerson';
 import Persons from './Persons';
 
-function SearchPage({
+function MainPage({
   persons,
   showSearchPersons,
+  showAddPerson,
   onSearch,
+  onAddPerson,
   filters,
   onFilterChange,
   onClearFilters,
 }) {
   return (
     <>
-      <Header title="List of persons" onSearch={onSearch} showSearch={showSearchPersons} />
-      {showSearchPersons ? (
-        <Search
-          persons={persons}
-          filters={filters}
-          onFilterChange={onFilterChange}
-          onClearFilters={onClearFilters}
-        />
-      ) : (
-        <Persons persons={persons} />
+      <Header
+        title={showAddPerson ? 'Add person' : 'List of persons'}
+        onSearch={onSearch}
+        showSearch={showSearchPersons}
+        onAddPerson={onAddPerson}
+      />
+
+      {showSearchPersons && (
+        <>
+          <Search
+            persons={persons}
+            filters={filters}
+            onFilterChange={onFilterChange}
+            onClearFilters={onClearFilters}
+          />
+        </>
+      )}
+      {showAddPerson && (
+        <>
+          <AddPerson />
+        </>
+      )}
+      {!showSearchPersons && (
+        <>
+          <Persons persons={persons} />
+        </>
       )}
     </>
   );
 }
 
-SearchPage.defaultProps = {
+MainPage.defaultProps = {
   persons: [],
   showSearchPersons: false,
   filters: {
@@ -43,7 +62,7 @@ SearchPage.defaultProps = {
   onClearFilters: null,
 };
 
-SearchPage.propTypes = {
+MainPage.propTypes = {
   persons: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -64,4 +83,4 @@ SearchPage.propTypes = {
   onClearFilters: PropTypes.func,
 };
 
-export default SearchPage;
+export default MainPage;
