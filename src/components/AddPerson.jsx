@@ -1,34 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function AddPerson() {
-  const [person, setPerson] = useState({
+  const defaultPerson = {
     id: 0,
     name: '',
     gender: '',
     height: 0,
-  });
+  };
+  const [person, setPerson] = useState(defaultPerson);
+  const [persons, setPersons] = useState([]);
 
-  const onSubmit = () => {
-    console.log('id', person.id);
-    console.log('name', person.name);
-    console.log('gender', person.gender);
-    console.log('height', person.height);
+  const fetchPersons = async () => {
+    const res = await fetch('http://localhost:5000/persons');
+    const data = await res.json();
+    return data;
+  };
+
+  useEffect(() => {
+    const getPersons = async () => {
+      const personsFromServer = await fetchPersons();
+      setPersons(personsFromServer);
+    };
+
+    getPersons();
+  }, []);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (Number.isNaN(Number(person.height))) {
+      alert('Height must be a number.');
+    } else if (person.name === '') {
+      alert("Name can't be empty.");
+    } else {
+      const res = await fetch('http://localhost:5000/persons', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(person),
+      });
+
+      const data = await res.json();
+      setPersons([...persons, data]);
+      setPerson(defaultPerson);
+    }
   };
 
   const onChange = (e) => {
-    setPerson({ ...person, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const properValue = Number.isNaN(parseInt(value, 10)) ? value : parseInt(value, 10);
+    setPerson({ ...person, [name]: properValue });
   };
 
   return (
-    <form className="add-form">
+    <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label htmlFor="personName">Name</label>
         <input id="personName" type="text" name="name" value={person.name} onChange={onChange} />
       </div>
       <div className="form-control">
         <label htmlFor="personGender">Gender</label>
-        <select id="personGender">
+        <select id="personGender" name="gender" value={person.gender} onChange={onChange}>
           <option>&#32;</option>
           <option>woman</option>
           <option>man</option>
@@ -36,11 +68,14 @@ function AddPerson() {
       </div>
       <div className="form-control">
         <label htmlFor="personHeight">Height</label>
-        <input type="text" />
+        <input
+          type="text"
+          name="height"
+          value={person.height === 0 ? '' : person.height}
+          onChange={onChange}
+        />
       </div>
-      <button className="btn btn-block" type="button" onClick={onSubmit}>
-        Submit
-      </button>
+      <input className="btn btn-block" type="submit" value="Add person" />
     </form>
   );
 }

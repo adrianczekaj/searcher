@@ -18,8 +18,8 @@ function App() {
 
   const fetchPersons = async () => {
     const res = await fetch('http://localhost:5000/persons');
-    const resjson = await res.json();
-    return resjson;
+    const data = await res.json();
+    return data;
   };
 
   useEffect(() => {
@@ -43,15 +43,16 @@ function App() {
   };
 
   const onClearFilters = () => {
+    console.log('filters', `'${filters.heightDownLimit}'`);
     setFilters(defaultFilters);
   };
 
   return (
     <Router>
-      <div className="container">
+      <div className='container'>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={
               <SearchPage
                 persons={persons}
@@ -64,8 +65,8 @@ function App() {
             }
           />
 
-          <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
-          <Route path="/person/add" element={<AddPersonPage />} />
+          <Route path='/person/:id' element={<PersonDetailsPage persons={persons} />} />
+          <Route path='/person/add' element={<AddPersonPage />} />
         </Routes>
       </div>
     </Router>
