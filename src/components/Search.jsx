@@ -83,12 +83,12 @@ Search.propTypes = {
       height: PropTypes.number,
     }),
   ),
-  filters: {
+  filters: PropTypes.shape({
     name: PropTypes.number,
     gender: PropTypes.string,
     heightDownLimit: PropTypes.number,
     heightUpLimit: PropTypes.number,
-  },
+  }),
   onFilterChange: PropTypes.func,
   onClearFilters: PropTypes.func,
 };

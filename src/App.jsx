@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
 import SearchPage from './components/SearchPage';
+import AddPersonPage from './components/AddPersonPage';
 
 function App() {
   const defaultFilters = {
@@ -64,6 +65,7 @@ function App() {
           />
 
           <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
+          <Route path="/person/add" element={<AddPersonPage />} />
         </Routes>
       </div>
     </Router>

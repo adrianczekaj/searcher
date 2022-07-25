@@ -53,12 +53,12 @@ SearchPage.propTypes = {
     }),
   ),
   showSearchPersons: PropTypes.bool,
-  filters: {
-    name: PropTypes.number,
+  filters: PropTypes.shape({
+    name: PropTypes.string,
     gender: PropTypes.string,
     heightDownLimit: PropTypes.number,
     heightUpLimit: PropTypes.number,
-  },
+  }),
   onSearch: PropTypes.func,
   onFilterChange: PropTypes.func,
   onClearFilters: PropTypes.func,
