@@ -37,12 +37,12 @@ PersonDetails.defaultProps = {
 };
 
 PersonDetails.propTypes = {
-  person: {
+  person: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     gender: PropTypes.string,
     height: PropTypes.number,
-  },
+  }),
 };
 
 export default PersonDetails;

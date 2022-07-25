@@ -84,7 +84,7 @@ Search.propTypes = {
     }),
   ),
   filters: PropTypes.shape({
-    name: PropTypes.number,
+    name: PropTypes.string,
     gender: PropTypes.string,
     heightDownLimit: PropTypes.number,
     heightUpLimit: PropTypes.number,
