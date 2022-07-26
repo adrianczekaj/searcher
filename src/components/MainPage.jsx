@@ -45,7 +45,7 @@ MainPage.defaultProps = {
     name: '',
     gender: '',
     heightDownLimit: 0,
-    heightUpLimit: 1000000,
+    heightUpLimit: 300,
   },
   showSearchPersons: false,
   showAddPerson: false,

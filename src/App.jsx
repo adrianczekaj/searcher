@@ -9,7 +9,7 @@ function App() {
     name: '',
     gender: '',
     heightDownLimit: 0,
-    heightUpLimit: 1000000,
+    heightUpLimit: 300,
   };
 
   const [persons, setPersons] = useState([]);

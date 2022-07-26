@@ -31,6 +31,8 @@ function AddPerson() {
 
     if (Number.isNaN(Number(person.height))) {
       alert('Height must be a number.');
+    } else if (person.height > 272) {
+      alert('The tallest human had 272 cm. If you are taller give the information to developer :)');
     } else if (person.name === '') {
       alert("Name can't be empty.");
     } else {
