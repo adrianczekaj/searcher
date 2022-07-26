@@ -50,7 +50,6 @@ function App() {
   };
 
   const onClearFilters = () => {
-    console.log('filters', `'${filters.heightDownLimit}'`);
     setFilters(defaultFilters);
   };
 

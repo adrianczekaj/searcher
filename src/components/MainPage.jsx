@@ -9,7 +9,7 @@ function MainPage({
   persons,
   showSearchPersons,
   showAddPerson,
-  onSearch,
+  onSearchPersons,
   onAddPerson,
   filters,
   onFilterChange,
@@ -19,45 +19,38 @@ function MainPage({
     <>
       <Header
         title={showAddPerson ? 'Add person' : 'List of persons'}
-        onSearch={onSearch}
+        onSearchPersons={onSearchPersons}
         showSearch={showSearchPersons}
         onAddPerson={onAddPerson}
+        showAddPerson={showAddPerson}
       />
 
       {showSearchPersons && (
-        <>
-          <Search
-            persons={persons}
-            filters={filters}
-            onFilterChange={onFilterChange}
-            onClearFilters={onClearFilters}
-          />
-        </>
+        <Search
+          persons={persons}
+          filters={filters}
+          onFilterChange={onFilterChange}
+          onClearFilters={onClearFilters}
+        />
       )}
-      {showAddPerson && (
-        <>
-          <AddPerson />
-        </>
-      )}
-      {!showSearchPersons && (
-        <>
-          <Persons persons={persons} />
-        </>
-      )}
+      {showAddPerson && <AddPerson />}
+      {!showSearchPersons && <Persons persons={persons} />}
     </>
   );
 }
 
 MainPage.defaultProps = {
   persons: [],
-  showSearchPersons: false,
   filters: {
     name: '',
     gender: '',
     heightDownLimit: 0,
-    heightUpLimit: 300,
+    heightUpLimit: 1000000,
   },
-  onSearch: null,
+  showSearchPersons: false,
+  showAddPerson: false,
+  onSearchPersons: null,
+  onAddPerson: null,
   onFilterChange: null,
   onClearFilters: null,
 };
@@ -71,14 +64,16 @@ MainPage.propTypes = {
       height: PropTypes.number,
     }),
   ),
-  showSearchPersons: PropTypes.bool,
   filters: PropTypes.shape({
     name: PropTypes.string,
     gender: PropTypes.string,
     heightDownLimit: PropTypes.number,
     heightUpLimit: PropTypes.number,
   }),
-  onSearch: PropTypes.func,
+  showSearchPersons: PropTypes.bool,
+  showAddPerson: PropTypes.bool,
+  onSearchPersons: PropTypes.func,
+  onAddPerson: PropTypes.func,
   onFilterChange: PropTypes.func,
   onClearFilters: PropTypes.func,
 };
