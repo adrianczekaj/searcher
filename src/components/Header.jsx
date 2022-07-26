@@ -11,8 +11,9 @@ function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAd
       {location.pathname === '/' && (
         <div>
           <button type="button" className="btn" onClick={onAddPerson}>
-            {showAddPerson ? 'Add person' : 'Hide'}
+            {showAddPerson ? 'Hide' : 'Add person'}
           </button>
+          <div style={{ display: 'inline-block', margin: '5px' }} />
           <button type="button" className="btn" onClick={onSearchPersons}>
             {showSearchPersons ? 'Hide filters' : 'Show filters'}
           </button>

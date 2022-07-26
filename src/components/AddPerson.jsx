@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Alert from './Alert';
 
 function AddPerson() {
   const defaultPerson = {
@@ -10,6 +11,13 @@ function AddPerson() {
   };
   const [person, setPerson] = useState(defaultPerson);
   const [persons, setPersons] = useState([]);
+  const [text, setText] = useState('');
+  const [showWindow, setShowWindow] = useState(false);
+  const [classShow, setClassShow] = useState('alert-container');
+
+  useEffect(() =>
+    showWindow ? setClassShow('alert-container show') : setClassShow('alert-container'),
+  );
 
   const fetchPersons = async () => {
     const res = await fetch('http://localhost:5000/persons');
@@ -26,15 +34,33 @@ function AddPerson() {
     getPersons();
   }, []);
 
+  const onFormChange = (e) => {
+    const { name, value } = e.target;
+    const properValue = Number.isNaN(parseInt(value, 10)) ? value : parseInt(value, 10);
+    setPerson({ ...person, [name]: properValue });
+  };
+
+  const displayAlert = ({ message }) => {
+    setText(message);
+    setShowWindow(true);
+  };
+
+  const onAlert = () => {
+    setShowWindow(false);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (Number.isNaN(Number(person.height))) {
-      alert('Height must be a number.');
+      displayAlert({ message: 'Height must be a number.' });
     } else if (person.height > 272) {
-      alert('The tallest human had 272 cm. If you are taller give the information to developer :)');
+      displayAlert({
+        message:
+          "I can't believe adding person is so tall :) The tallest human was 272 cm. If you need bigger number give the information to the developer.",
+      });
     } else if (person.name === '') {
-      alert("Name can't be empty.");
+      displayAlert({ message: "Name can't be empty." });
     } else {
       const res = await fetch('http://localhost:5000/persons', {
         method: 'POST',
@@ -48,21 +74,22 @@ function AddPerson() {
     }
   };
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    const properValue = Number.isNaN(parseInt(value, 10)) ? value : parseInt(value, 10);
-    setPerson({ ...person, [name]: properValue });
-  };
-
   return (
     <form className="add-form" onSubmit={onSubmit}>
+      <Alert text={text} alertClasses={classShow} onAlert={onAlert} />
       <div className="form-control">
         <label htmlFor="personName">Name</label>
-        <input id="personName" type="text" name="name" value={person.name} onChange={onChange} />
+        <input
+          id="personName"
+          type="text"
+          name="name"
+          value={person.name}
+          onChange={onFormChange}
+        />
       </div>
       <div className="form-control">
         <label htmlFor="personGender">Gender</label>
-        <select id="personGender" name="gender" value={person.gender} onChange={onChange}>
+        <select id="personGender" name="gender" value={person.gender} onChange={onFormChange}>
           <option>&#32;</option>
           <option>woman</option>
           <option>man</option>
@@ -74,7 +101,7 @@ function AddPerson() {
           type="text"
           name="height"
           value={person.height === 0 ? '' : person.height}
-          onChange={onChange}
+          onChange={onFormChange}
         />
       </div>
       <input className="btn btn-block" type="submit" value="Add person" />
