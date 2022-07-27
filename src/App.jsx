@@ -32,7 +32,7 @@ function App() {
     getPersons();
   }, []);
 
-  const onSearch = () => {
+  const onSearchPersons = () => {
     setShowSearchPersons(!showSearchPersons);
     setShowAddPerson(false);
   };
@@ -65,7 +65,7 @@ function App() {
                 filters={filters}
                 showSearchPersons={showSearchPersons}
                 showAddPerson={showAddPerson}
-                onSearch={onSearch}
+                onSearchPersons={onSearchPersons}
                 onAddPerson={onAddPerson}
                 onFilterChange={onFilterChange}
                 onClearFilters={onClearFilters}
