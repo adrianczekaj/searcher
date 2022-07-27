@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
 import MainPage from './components/MainPage';
 import AddPersonPage from './components/AddPersonPage';
+import useFetch from './customHooks/useFetch';
 
 function App() {
   const defaultFilters = {
@@ -12,25 +13,10 @@ function App() {
     heightUpLimit: 300,
   };
 
-  const [persons, setPersons] = useState([]);
+  const persons = useFetch();
   const [showAddPerson, setShowAddPerson] = useState(false);
   const [showSearchPersons, setShowSearchPersons] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
-
-  const fetchPersons = async () => {
-    const res = await fetch('http://localhost:5000/persons');
-    const data = await res.json();
-    return data;
-  };
-
-  useEffect(() => {
-    const getPersons = async () => {
-      const personsFromServer = await fetchPersons();
-      setPersons(personsFromServer);
-    };
-
-    getPersons();
-  }, []);
 
   const onSearchPersons = () => {
     setShowSearchPersons(!showSearchPersons);

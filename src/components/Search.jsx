@@ -45,7 +45,7 @@ function Search({ persons, filters, onFilterChange, onClearFilters }) {
             value={filters.heightDownLimit === 0 ? '' : filters.heightDownLimit}
             onChange={onFilterChange}
           />
-          <label htmlFor="personHeightDivider" style={{ 'margin-left': '5px' }}>
+          <label htmlFor="personHeightDivider" style={{ marginLeft: '5px' }}>
             -
           </label>
           <input
