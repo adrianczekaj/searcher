@@ -62,7 +62,6 @@ function App() {
               />
             }
           />
-
           <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
         </Routes>
       </div>
