@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Alert from './Alert';
 
@@ -10,7 +11,6 @@ function AddPerson() {
     height: 0,
   };
   const [person, setPerson] = useState(defaultPerson);
-  const [persons, setPersons] = useState([]);
   const [text, setText] = useState('');
   const [showWindow, setShowWindow] = useState(false);
   const [classShow, setClassShow] = useState('alert-container');
@@ -18,21 +18,6 @@ function AddPerson() {
   useEffect(() =>
     showWindow ? setClassShow('alert-container show') : setClassShow('alert-container'),
   );
-
-  const fetchPersons = async () => {
-    const res = await fetch('http://localhost:5000/persons');
-    const data = await res.json();
-    return data;
-  };
-
-  useEffect(() => {
-    const getPersons = async () => {
-      const personsFromServer = await fetchPersons();
-      setPersons(personsFromServer);
-    };
-
-    getPersons();
-  }, []);
 
   const onFormChange = (e) => {
     const { name, value } = e.target;
@@ -62,14 +47,8 @@ function AddPerson() {
     } else if (person.name === '') {
       displayAlert({ message: "Name can't be empty." });
     } else {
-      const res = await fetch('http://localhost:5000/persons', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(person),
-      });
+      axios.post('http://localhost:5000/persons', person);
 
-      const data = await res.json();
-      setPersons([...persons, data]);
       setPerson(defaultPerson);
     }
   };
