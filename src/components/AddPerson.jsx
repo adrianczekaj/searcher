@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Alert from './Alert';
+import Persons from './Persons';
 
 function AddPerson() {
   const defaultPerson = {
@@ -11,9 +12,16 @@ function AddPerson() {
     height: 0,
   };
   const [person, setPerson] = useState(defaultPerson);
+  const [persons, setPersons] = useState();
   const [text, setText] = useState('');
   const [showWindow, setShowWindow] = useState(false);
   const [classShow, setClassShow] = useState('alert-container');
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/persons').then((res) => {
+      setPersons(res.data);
+    });
+  });
 
   useEffect(() =>
     showWindow ? setClassShow('alert-container show') : setClassShow('alert-container'),
@@ -54,37 +62,40 @@ function AddPerson() {
   };
 
   return (
-    <form className="add-form" onSubmit={onSubmit}>
-      <Alert text={text} alertClasses={classShow} onAlert={onAlert} />
-      <div className="form-control">
-        <label htmlFor="personName">Name</label>
-        <input
-          id="personName"
-          type="text"
-          name="name"
-          value={person.name}
-          onChange={onFormChange}
-        />
-      </div>
-      <div className="form-control">
-        <label htmlFor="personGender">Gender</label>
-        <select id="personGender" name="gender" value={person.gender} onChange={onFormChange}>
-          <option>&#32;</option>
-          <option>woman</option>
-          <option>man</option>
-        </select>
-      </div>
-      <div className="form-control">
-        <label htmlFor="personHeight">Height</label>
-        <input
-          type="text"
-          name="height"
-          value={person.height === 0 ? '' : person.height}
-          onChange={onFormChange}
-        />
-      </div>
-      <input className="btn btn-block" type="submit" value="Add person" />
-    </form>
+    <>
+      <form className="add-form" onSubmit={onSubmit}>
+        <Alert text={text} alertClasses={classShow} onAlert={onAlert} />
+        <div className="form-control">
+          <label htmlFor="personName">Name</label>
+          <input
+            id="personName"
+            type="text"
+            name="name"
+            value={person.name}
+            onChange={onFormChange}
+          />
+        </div>
+        <div className="form-control">
+          <label htmlFor="personGender">Gender</label>
+          <select id="personGender" name="gender" value={person.gender} onChange={onFormChange}>
+            <option>&#32;</option>
+            <option>woman</option>
+            <option>man</option>
+          </select>
+        </div>
+        <div className="form-control">
+          <label htmlFor="personHeight">Height</label>
+          <input
+            type="text"
+            name="height"
+            value={person.height === 0 ? '' : person.height}
+            onChange={onFormChange}
+          />
+        </div>
+        <input className="btn btn-block" type="submit" value="Add person" />
+      </form>
+      <Persons persons={persons} />
+    </>
   );
 }
 

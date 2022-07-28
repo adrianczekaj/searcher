@@ -34,7 +34,7 @@ function MainPage({
         />
       )}
       {showAddPerson && <AddPerson />}
-      {!showSearchPersons && <Persons persons={persons} />}
+      {!showSearchPersons && !showAddPerson && <Persons persons={persons} />}
     </>
   );
 }
