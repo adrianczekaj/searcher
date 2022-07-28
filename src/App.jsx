@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
 import MainPage from './components/MainPage';
-import AddPersonPage from './components/AddPersonPage';
 import useFetch from './customHooks/useFetch';
 
 function App() {
@@ -18,20 +17,24 @@ function App() {
   const [showSearchPersons, setShowSearchPersons] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
 
-  const onSearchPersons = () => {
-    setShowSearchPersons(!showSearchPersons);
-    setShowAddPerson(false);
-  };
-
   const onAddPerson = () => {
     setShowAddPerson(!showAddPerson);
     setShowSearchPersons(false);
   };
 
+  const onSearchPersons = () => {
+    setShowSearchPersons(!showSearchPersons);
+    setShowAddPerson(false);
+  };
+
   const onFilterChange = (e) => {
+    const { name, value } = e.target;
+    const tryParseInt = parseInt(value, 10);
+    const properValue = Number.isNaN(tryParseInt) ? value : tryParseInt;
+
     setFilters({
       ...filters,
-      [e.target.name]: e.target.value,
+      [name]: properValue,
     });
   };
 
@@ -58,9 +61,7 @@ function App() {
               />
             }
           />
-
           <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
-          <Route path="/person/add" element={<AddPersonPage />} />
         </Routes>
       </div>
     </Router>

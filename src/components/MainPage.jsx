@@ -20,7 +20,7 @@ function MainPage({
       <Header
         title={showAddPerson ? 'Add person' : 'List of persons'}
         onSearchPersons={onSearchPersons}
-        showSearch={showSearchPersons}
+        showSearchPersons={showSearchPersons}
         onAddPerson={onAddPerson}
         showAddPerson={showAddPerson}
       />

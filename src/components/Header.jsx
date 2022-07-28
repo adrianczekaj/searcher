@@ -25,7 +25,7 @@ function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAd
 
 Header.defaultProps = {
   title: 'List of persons',
-  showSearchPersons: false,
+  showSearchPersons: true,
   showAddPerson: false,
   onSearchPersons: null,
   onAddPerson: null,

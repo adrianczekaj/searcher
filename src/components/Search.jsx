@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Persons from './Persons';
 
 function Search({ persons, filters, onFilterChange, onClearFilters }) {
+  const heightDownLimit = typeof filters.heightDownLimit === 'string' ? 0 : filters.heightDownLimit;
+  const heightUpLimit = typeof filters.heightUpLimit === 'string' ? 300 : filters.heightUpLimit;
+
   const filteredPersons = useMemo(
     () =>
       persons
@@ -10,8 +13,7 @@ function Search({ persons, filters, onFilterChange, onClearFilters }) {
           (x) =>
             x.name.substring(0, filters.name.length).toLowerCase() === filters.name.toLowerCase(),
         )
-        .filter((x) => x.height >= filters.heightDownLimit)
-        .filter((x) => x.height <= filters.heightUpLimit)
+        .filter((x) => x.height >= heightDownLimit && x.height <= heightUpLimit)
         .filter((x) => (filters.gender === '' ? x : x.gender === filters.gender)),
     [persons, filters.name, filters.heightDownLimit, filters.heightUpLimit, filters.gender],
   );
