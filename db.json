@@ -119,6 +119,54 @@
       "name": "Krystyna",
       "gender": "woman",
       "height": 173
+    },
+    {
+      "id": 21,
+      "name": "Mateusz",
+      "gender": "man",
+      "height": 45
+    },
+    {
+      "id": 22,
+      "name": "Andrzej",
+      "gender": "man",
+      "height": 120
+    },
+    {
+      "id": 23,
+      "name": "Alicja",
+      "gender": "woman",
+      "height": 178
+    },
+    {
+      "id": 24,
+      "name": "Ewa",
+      "gender": "woman",
+      "height": 12
+    },
+    {
+      "id": 25,
+      "name": "Antonina",
+      "gender": "woman",
+      "height": 158
+    },
+    {
+      "id": 26,
+      "name": "Marianna",
+      "gender": "woman",
+      "height": 166
+    },
+    {
+      "id": 27,
+      "name": "Miłosz",
+      "gender": "man",
+      "height": 152
+    },
+    {
+      "id": 28,
+      "name": "Mateusz",
+      "gender": "man",
+      "height": 160
     }
   ]
 }

@@ -2,16 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
-function Header({ title, onSearch, showSearch }) {
+function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAddPerson }) {
   const location = useLocation();
 
   return (
     <header className="header">
       <h1>{title}</h1>
       {location.pathname === '/' && (
-        <button type="button" className="btn" onClick={onSearch}>
-          {showSearch ? 'Hide filters' : 'Show filters'}
-        </button>
+        <div>
+          <button type="button" className="btn" onClick={onAddPerson}>
+            {showAddPerson ? 'Hide' : 'Add person'}
+          </button>
+          <div style={{ display: 'inline-block', margin: '5px' }} />
+          <button type="button" className="btn" onClick={onSearchPersons}>
+            {showSearchPersons ? 'Hide filters' : 'Show filters'}
+          </button>
+        </div>
       )}
     </header>
   );
@@ -19,14 +25,18 @@ function Header({ title, onSearch, showSearch }) {
 
 Header.defaultProps = {
   title: 'List of persons',
-  showSearch: false,
-  onSearch: null,
+  showSearchPersons: true,
+  showAddPerson: false,
+  onSearchPersons: null,
+  onAddPerson: null,
 };
 
 Header.propTypes = {
   title: PropTypes.string,
-  showSearch: PropTypes.bool,
-  onSearch: PropTypes.func,
+  showSearchPersons: PropTypes.bool,
+  showAddPerson: PropTypes.bool,
+  onSearchPersons: PropTypes.func,
+  onAddPerson: PropTypes.func,
 };
 
 export default Header;

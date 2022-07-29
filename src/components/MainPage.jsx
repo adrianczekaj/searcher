@@ -2,48 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Search from './Search';
+import AddPerson from './AddPerson';
 import Persons from './Persons';
 
-function SearchPage({
+function MainPage({
   persons,
   showSearchPersons,
-  onSearch,
+  showAddPerson,
+  onSearchPersons,
+  onAddPerson,
   filters,
   onFilterChange,
   onClearFilters,
 }) {
   return (
     <>
-      <Header title="List of persons" onSearch={onSearch} showSearch={showSearchPersons} />
-      {showSearchPersons ? (
+      <Header
+        title={showAddPerson ? 'Add person' : 'List of persons'}
+        onSearchPersons={onSearchPersons}
+        showSearchPersons={showSearchPersons}
+        onAddPerson={onAddPerson}
+        showAddPerson={showAddPerson}
+      />
+
+      {showSearchPersons && (
         <Search
           persons={persons}
           filters={filters}
           onFilterChange={onFilterChange}
           onClearFilters={onClearFilters}
         />
-      ) : (
-        <Persons persons={persons} />
       )}
+      {showAddPerson && <AddPerson />}
+      {!showSearchPersons && !showAddPerson && <Persons persons={persons} />}
     </>
   );
 }
 
-SearchPage.defaultProps = {
+MainPage.defaultProps = {
   persons: [],
-  showSearchPersons: false,
   filters: {
     name: '',
     gender: '',
     heightDownLimit: 0,
     heightUpLimit: 300,
   },
-  onSearch: null,
+  showSearchPersons: false,
+  showAddPerson: false,
+  onSearchPersons: null,
+  onAddPerson: null,
   onFilterChange: null,
   onClearFilters: null,
 };
 
-SearchPage.propTypes = {
+MainPage.propTypes = {
   persons: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -52,16 +64,18 @@ SearchPage.propTypes = {
       height: PropTypes.number,
     }),
   ),
-  showSearchPersons: PropTypes.bool,
   filters: PropTypes.shape({
     name: PropTypes.string,
     gender: PropTypes.string,
     heightDownLimit: PropTypes.number,
     heightUpLimit: PropTypes.number,
   }),
-  onSearch: PropTypes.func,
+  showSearchPersons: PropTypes.bool,
+  showAddPerson: PropTypes.bool,
+  onSearchPersons: PropTypes.func,
+  onAddPerson: PropTypes.func,
   onFilterChange: PropTypes.func,
   onClearFilters: PropTypes.func,
 };
 
-export default SearchPage;
+export default MainPage;

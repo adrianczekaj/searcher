@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
-import SearchPage from './components/SearchPage';
+import MainPage from './components/MainPage';
+import useFetch from './customHooks/useFetch';
 
 function App() {
   const defaultFilters = {
@@ -11,33 +12,29 @@ function App() {
     heightUpLimit: 300,
   };
 
-  const [persons, setPersons] = useState([]);
+  const [showAddPerson, setShowAddPerson] = useState(false);
   const [showSearchPersons, setShowSearchPersons] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
+  const persons = useFetch();
 
-  const fetchPersons = async () => {
-    const res = await fetch('http://localhost:5000/persons');
-    const resjson = await res.json();
-    return resjson;
+  const onAddPerson = () => {
+    setShowAddPerson(!showAddPerson);
+    setShowSearchPersons(false);
   };
 
-  useEffect(() => {
-    const getPersons = async () => {
-      const personsFromServer = await fetchPersons();
-      setPersons(personsFromServer);
-    };
-
-    getPersons();
-  }, []);
-
-  const onSearch = () => {
+  const onSearchPersons = () => {
     setShowSearchPersons(!showSearchPersons);
+    setShowAddPerson(false);
   };
 
   const onFilterChange = (e) => {
+    const { name, value } = e.target;
+    const tryParseInt = parseInt(value, 10);
+    const properValue = Number.isNaN(tryParseInt) ? value : tryParseInt;
+
     setFilters({
       ...filters,
-      [e.target.name]: e.target.value,
+      [name]: properValue,
     });
   };
 
@@ -52,11 +49,13 @@ function App() {
           <Route
             path="/"
             element={
-              <SearchPage
+              <MainPage
                 persons={persons}
-                showSearchPersons={showSearchPersons}
-                onSearch={onSearch}
                 filters={filters}
+                showSearchPersons={showSearchPersons}
+                showAddPerson={showAddPerson}
+                onSearchPersons={onSearchPersons}
+                onAddPerson={onAddPerson}
                 onFilterChange={onFilterChange}
                 onClearFilters={onClearFilters}
               />
