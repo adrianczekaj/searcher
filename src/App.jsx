@@ -12,10 +12,10 @@ function App() {
     heightUpLimit: 300,
   };
 
-  const persons = useFetch();
   const [showAddPerson, setShowAddPerson] = useState(false);
   const [showSearchPersons, setShowSearchPersons] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
+  const persons = useFetch();
 
   const onAddPerson = () => {
     setShowAddPerson(!showAddPerson);

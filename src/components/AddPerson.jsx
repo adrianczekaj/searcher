@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import useFetch from '../customHooks/useFetch';
 import Alert from './Alert';
 import Persons from './Persons';
 
@@ -12,16 +13,10 @@ function AddPerson() {
     height: 0,
   };
   const [person, setPerson] = useState(defaultPerson);
-  const [persons, setPersons] = useState();
   const [text, setText] = useState('');
   const [showWindow, setShowWindow] = useState(false);
   const [classShow, setClassShow] = useState('alert-container');
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/persons').then((res) => {
-      setPersons(res.data);
-    });
-  });
+  const persons = useFetch();
 
   useEffect(() =>
     showWindow ? setClassShow('alert-container show') : setClassShow('alert-container'),

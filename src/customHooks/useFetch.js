@@ -8,7 +8,7 @@ const useFetch = () => {
     axios.get('http://localhost:5000/persons').then((res) => {
       setData(res.data);
     });
-  }, []);
+  });
 
   return data;
 };
