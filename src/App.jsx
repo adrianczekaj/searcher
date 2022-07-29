@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
 import MainPage from './components/MainPage';
@@ -43,28 +44,30 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <MainPage
-                persons={persons}
-                filters={filters}
-                showSearchPersons={showSearchPersons}
-                showAddPerson={showAddPerson}
-                onSearchPersons={onSearchPersons}
-                onAddPerson={onAddPerson}
-                onFilterChange={onFilterChange}
-                onClearFilters={onClearFilters}
-              />
-            }
-          />
-          <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
-        </Routes>
-      </div>
-    </Router>
+    <ChakraProvider>
+      <Router>
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  persons={persons}
+                  filters={filters}
+                  showSearchPersons={showSearchPersons}
+                  showAddPerson={showAddPerson}
+                  onSearchPersons={onSearchPersons}
+                  onAddPerson={onAddPerson}
+                  onFilterChange={onFilterChange}
+                  onClearFilters={onClearFilters}
+                />
+              }
+            />
+            <Route path="/person/:id" element={<PersonDetailsPage persons={persons} />} />
+          </Routes>
+        </div>
+      </Router>
+    </ChakraProvider>
   );
 }
 
