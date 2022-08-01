@@ -1,25 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { Box, Button, Flex, Heading, Spacer } from '@chakra-ui/react';
 
 function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAddPerson }) {
   const location = useLocation();
 
   return (
-    <header className="header">
-      <h1>{title}</h1>
+    <Flex>
+      <Heading size="xl">{title}</Heading>
+      <Spacer />
       {location.pathname === '/' && (
-        <div>
-          <button type="button" className="btn" onClick={onAddPerson}>
+        <Flex>
+          <Button colorScheme="teal" onClick={onAddPerson}>
             {showAddPerson ? 'Hide' : 'Add person'}
-          </button>
-          <div style={{ display: 'inline-block', margin: '5px' }} />
-          <button type="button" className="btn" onClick={onSearchPersons}>
+          </Button>
+          <Box m="5px" />
+          <Button colorScheme="teal" onClick={onSearchPersons}>
             {showSearchPersons ? 'Hide filters' : 'Show filters'}
-          </button>
-        </div>
+          </Button>
+        </Flex>
       )}
-    </header>
+    </Flex>
   );
 }
 
