@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonDetailsPage from './components/PersonDetailsPage';
 import MainPage from './components/MainPage';
 import useFetch from './customHooks/useFetch';
+import theme from './Theme';
 
 function App() {
   const defaultFilters = {
@@ -44,7 +45,7 @@ function App() {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Router>
         <div className="container">
           <Routes>

@@ -70,20 +70,13 @@ function AddPerson() {
               name="name"
               value={person.name}
               onChange={onFormChange}
-              focusBorderColor="teal.500"
             />
           </Box>
         </FormControl>
         <FormControl>
           <Box display="flex" alignItems="center">
             <FormLabel htmlFor="personGender">Gender</FormLabel>
-            <Select
-              id="personGender"
-              name="gender"
-              value={person.gender}
-              onChange={onFormChange}
-              focusBorderColor="teal.500"
-            >
+            <Select id="personGender" name="gender" value={person.gender} onChange={onFormChange}>
               <option>&#32;</option>
               <option>woman</option>
               <option>man</option>
@@ -98,13 +91,10 @@ function AddPerson() {
               name="height"
               value={person.height === 0 ? '' : person.height}
               onChange={onFormChange}
-              focusBorderColor="teal.500"
             />
           </Box>
         </FormControl>
-        <Button colorScheme="teal" onClick={onSubmit}>
-          Add person
-        </Button>
+        <Button onClick={onSubmit}>Add person</Button>
       </Stack>
       <Persons persons={persons} />
     </>

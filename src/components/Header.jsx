@@ -7,16 +7,14 @@ function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAd
   const location = useLocation();
 
   return (
-    <Flex mb="3rem">
+    <Flex mb="3rem" align="center">
       <Heading size="xl">{title}</Heading>
       <Spacer />
       {location.pathname === '/' && (
         <Flex>
-          <Button colorScheme="teal" onClick={onAddPerson}>
-            {showAddPerson ? 'Hide' : 'Add person'}
-          </Button>
+          <Button onClick={onAddPerson}>{showAddPerson ? 'Hide' : 'Add person'}</Button>
           <Box m="5px" />
-          <Button colorScheme="teal" onClick={onSearchPersons}>
+          <Button onClick={onSearchPersons}>
             {showSearchPersons ? 'Hide filters' : 'Show filters'}
           </Button>
         </Flex>
