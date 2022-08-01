@@ -7,7 +7,7 @@ function Header({ title, onSearchPersons, showSearchPersons, onAddPerson, showAd
   const location = useLocation();
 
   return (
-    <Flex>
+    <Flex mb="3rem">
       <Heading size="xl">{title}</Heading>
       <Spacer />
       {location.pathname === '/' && (
